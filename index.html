@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+
+    <div style="width: 730px; margin: auto; margin-top: 180px;">
+        <div style="width: 330px; margin: auto;">
+            <label id="input-label" for="inputId">⬆️ качи файла с графика</label>
+            <input id="inputId" type="file" style="position: fixed; top: -100em">
+        </div>
+        <div style="margin-top: 60px;">
+            <ol style="font-size: 22px;">
+                <li style="margin-top: 8px;">Попълнете шаблона <a style="color: #d3394c; font-weight: bold; text-decoration: none;" target="_blank" href="https://docs.google.com/spreadsheets/d/1Or4F83oMkglzdCNwOFAG33dGlNlIEEpUMtVGsCZ6CfI/edit?usp=sharing">ГРАФИК НА СЛУЖИТЕЛИТЕ</a></li>
+                <li style="margin-top: 8px;">Свалете документа във формат CSV</li>
+                <img style="width: 830px; margin-left: -22px; margin-top: 8px;" src="./img/download.png">
+                <li style="margin-top: 8px;">Натиснете бутона качи файла с графика и изберете сваления CSV файл</li>
+                <li style="margin-top: 8px;">Системата ще генерира EXCEL файл, който ще се свали автоматично</li>
+                <li style="margin-top: 8px;">Отворете <strong>нов празен документ</strong> в Google Sheet</li> 
+                <img style="width: 830px; margin-left: -22px; margin-top: 8px;" src="./img/upload-1.png">
+                <img style="width: 830px; margin-left: -22px; margin-top: 8px;" src="./img/upload-2.png">
+                <img style="width: 830px; margin-left: -22px; margin-top: 8px;" src="./img/upload-3.png">
+            </ol>
+        </div>
+    </div>
+
+    <script src="./libs/excel.js"></script>
+    <script src="./src/util.js"></script>
+    <script src="./src/transform.js"></script>
+    <script src="./src/build_table_map.js"></script>
+    <script src="./src/script.js"></script>
+</body>
+</html>
