@@ -1,8 +1,15 @@
-const buildSheduleRow = (tableRecord) => {
+const buildSheduleRow = (index, tableRecord) => {
 
     const row = [];
-    row.push(tableRecord.day);
-    
+
+    if([0 ,7  ,14  ,21  ].includes(index)) row.push('Понеделник');
+    if([1 ,8  ,15  ,22  ].includes(index)) row.push('Вторник'   );
+    if([2 ,9  ,16  ,23  ].includes(index)) row.push('Сряда'     );
+    if([3 ,10 ,17  ,24  ].includes(index)) row.push('Четвъртък' );
+    if([4 ,11 ,18  ,25  ].includes(index)) row.push('Петък'     );
+    if([5 ,12 ,19  ,26  ].includes(index)) row.push('Събота'    );
+    if([6 ,13 ,20  ,27  ].includes(index)) row.push('Недебя'    );
+
     for(const record of tableRecord.collection) {
 
         if(record.workRelation == '1') row.push('първа');
@@ -94,7 +101,7 @@ const buildTableMap = (applicationObject) => {
         const tableRecord = applicationObject[index];
 
         const tableMap = [[]];
-        tableMap.push(buildSheduleRow(tableRecord));
+        tableMap.push(buildSheduleRow(index, tableRecord));
         tableMap.push(buildHeaderRow(tableRecord));
         tableMap.push(buildTimeFrameRow('08:00', tableRecord));
         tableMap.push(buildTimeFrameRow('08:30', tableRecord));

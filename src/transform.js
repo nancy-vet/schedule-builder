@@ -1,9 +1,3 @@
-let monthDecorator = {
-    firstMonth  : null,
-    secondMonth : null,
-    index       : null
-};
-
 const getMonthIndex = (text) => {
     if(text == 'януари'     ) return 1;
     if(text == 'февруари'   ) return 2;
@@ -25,15 +19,8 @@ const getMonthIndex = (text) => {
  */
 const processHeader = (element) => {
 
-    console.log("@@@@@@@@");
-
     const elementCollection = element.split(',');
-
-    // const md                = elementCollection[1];
-    // const first             = md.split('/')[0];
-    // monthDecorator.index    = getMonthIndex(first);
-
-    const collection = elementCollection.splice(2);
+    const collection        = elementCollection.splice(2);
     return ['', ...collection];
 };
 
@@ -64,6 +51,7 @@ const parseCSVToArray = (data) => {
     for(let element of data) {
         
         if(indexParser == 0) {
+            console.log(indexParser);
             arrayReference.workDays = processHeader(element);
         }
     
@@ -89,13 +77,23 @@ const getTimeFrame = (flag) => {
     if(flag == '2') return `11:00 - 20:00`
 };
 
+/**
+ * 
+ * @param {*} data 
+ * @returns 
+ */
 const getTotalWorkPersonelCount = (data) => {
 
     const arrayResult =  parseCSVToArray(data);
     return arrayResult.personelCallendar.length;
 };
 
-window.transformCSVToObject = (data) => {
+/**
+ * 
+ * @param {*} data 
+ * @returns 
+ */
+const transformCSVToObject = (data) => {
 
     const arrayResult =  parseCSVToArray(data);
 
