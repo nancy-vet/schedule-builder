@@ -21,7 +21,28 @@ const createWorksheet = (workbook, content, tableMap, title) => {
     
         row.height = 20;
     
+        let colorThisRow = false;
         row.eachCell((cell, colNumber) => {
+
+            if(['08:00', '09:00','10:00', '11:00', '12:00', '16:00', '17:00', '18:00', '19:00'].includes(cell.value)) {
+                colorThisRow = true;
+            }
+
+            if(['12:30', '13:00','13:30', '14:00', '14:30', '15:00', '15:30'].includes(cell.value)) {
+                colorThisRow = false;
+            }
+
+            if(['08:30', '09:30','10:30', '11:30', '12:30', '15:30', '16:30', '17:30', '18:30', '19:30'].includes(cell.value)) {
+                colorThisRow = false;
+            }
+            
+            if(colorThisRow) {
+                cell.fill = {
+                    type    : 'pattern',
+                    pattern : 'solid',
+                    fgColor : {argb:'CFE2F3'},
+                };
+            }
     
     
             if(cell.value == 'обедна почивка') {
@@ -33,7 +54,7 @@ const createWorksheet = (workbook, content, tableMap, title) => {
                 };
             }
 
-            if(cell.value == 'първа' || cell.value == 'втора' || cell.value == 'междиннка') {
+            if(['първа', 'втора', 'междиннка'].includes(cell.value)) {
 
                 cell.fill = {
                     type    : 'pattern',

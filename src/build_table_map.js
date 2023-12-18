@@ -8,7 +8,7 @@ const buildSheduleRow = (index, tableRecord) => {
     if([3 ,10 ,17  ,24  ].includes(index)) row.push('Четвъртък' );
     if([4 ,11 ,18  ,25  ].includes(index)) row.push('Петък'     );
     if([5 ,12 ,19  ,26  ].includes(index)) row.push('Събота'    );
-    if([6 ,13 ,20  ,27  ].includes(index)) row.push('Недебя'    );
+    if([6 ,13 ,20  ,27  ].includes(index)) row.push('Неделя'    );
 
     for(const record of tableRecord.collection) {
 
