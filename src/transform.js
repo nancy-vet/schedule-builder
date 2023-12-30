@@ -162,18 +162,8 @@ const transformCSVToObject = (data) => {
 
         personObject.sort((a, b) => a.id - b.id);
     
-        const getMonthIndex = (dateIndex, index) => {
-
-            if(index > 20) return arrayReference.initMonthIndex + 1;
-            return arrayReference.initMonthIndex;
-        }
-
-
-        const monthIndex    = getMonthIndex(dateIndex, index, arrayReference.initMonthIndex);
-        const dateId        = `${dateIndex}.0${arrayReference.initMonthIndex}.2024`;
-
         template.push({
-            index       : dateId,
+            index       : dateIndex,
             collection  : personObject
         });
     }
