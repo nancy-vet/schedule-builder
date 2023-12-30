@@ -12,9 +12,11 @@ const buildSheduleRow = (index, tableRecord) => {
 
     for(const record of tableRecord.collection) {
 
-        if(record.workRelation == '1') row.push('първа');
-        if(record.workRelation == '2') row.push('втора');
-        if(record.workRelation == 'M' || record.workRelation == 'М') row.push('междиннка');
+        const workFlag = (record.workRelation).toUpperCase();
+
+        if(workFlag == '1'  ) row.push('първа');
+        if(workFlag == '2'  ) row.push('втора');
+        if(workFlag == 'M'  ) row.push('междиннка');
     }
 
     return row;
@@ -32,61 +34,49 @@ const buildHeaderRow = (tableRecord) => {
     return row;
 }
 
+/**
+ * @author Mihail Petrov
+ * @param {*} timeFrame 
+ * @param {*} regularTimeframeCollection 
+ * @param {*} lanchTimeframeCollection 
+ * @returns 
+ */
+const processTimeFrameIdentificator = (
+        timeFrame, 
+        regularTimeframeCollection, 
+        lanchTimeframeCollection
+    ) => {
+
+    if( regularTimeframeCollection.includes(timeFrame)  ) return '-';
+    if( lanchTimeframeCollection.includes(timeFrame)    ) return 'обедна почивка';
+    return '';
+}
+
 const buildTimeFrameRow = (timeFrame, tableRecord) => {
 
     const tableRow = [timeFrame];
 
     for(const record of tableRecord.collection) {
 
-        if(record.workRelation == '1') {
-            if( timeFrame == '17:00' || 
-                timeFrame == '17:30' || 
-                timeFrame == '18:00' || 
-                timeFrame == '18:30' ||
-                timeFrame == '19:00' ||
-                timeFrame == '19:30') {
-                tableRow.push('-');
-            }
-            else if(timeFrame == '12:30' || timeFrame == '13:00') {
-                tableRow.push('обедна почивка');
-            }                
-            else {
-                tableRow.push('');
-            }
-        }
+        const workFlag = (record.workRelation).toUpperCase();
 
-        if(record.workRelation == 'М' || record.workRelation == 'M') {
-            if( timeFrame == '08:00' || 
-                timeFrame == '08:30' || 
-                timeFrame == '09:00' || 
-                timeFrame == '19:00' ||
-                timeFrame == '19:30') {
-                    tableRow.push('-');
-            }
-            else if(timeFrame == '13:30' || timeFrame == '14:00') {
-                tableRow.push('обедна почивка');
-            }
-            else {
-                tableRow.push('');
-            }
-        }
+        if(workFlag == '1')  tableRow.push(processTimeFrameIdentificator(
+            timeFrame,
+            ['17:00', '17:30', '18:00','18:30','19:00', '19:30' ],
+            ['12:30', '13:00']
+        ));
 
-        if(record.workRelation == '2') {
-            if( timeFrame == '08:00' || 
-                timeFrame == '08:30' || 
-                timeFrame == '09:00' || 
-                timeFrame == '09:30' ||
-                timeFrame == '10:00' ||
-                timeFrame == '10:30') {
-                    tableRow.push('-');
-            }
-            else if(timeFrame == '14:30' || timeFrame == '15:00') {
-                tableRow.push('обедна почивка');
-            }                
-            else {
-                tableRow.push('');
-            }
-        }
+        if(workFlag == 'М')  tableRow.push(processTimeFrameIdentificator(
+            timeFrame,
+            ['08:00', '08:30', '09:00','19:00','19:30' ],
+            ['13:30', '14:00']
+        ));
+
+        if(workFlag == '2')  tableRow.push(processTimeFrameIdentificator(
+            timeFrame,
+            ['08:00', '08:30', '09:00','09:30','10:00', '10:30' ],
+            ['14:30', '15:00']
+        ));
     }
 
     return tableRow;
