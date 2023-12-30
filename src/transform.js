@@ -34,7 +34,7 @@ const processCurrentMonth = (element) => {
     
     const elementCollection = element.split(',');
     const collection        = elementCollection[1];
-    const monthElement      = collection.splice('/')[0];
+    const monthElement      = collection.split('/')[0];
 
     return getMonthIndex(monthElement);
 }
