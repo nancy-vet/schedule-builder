@@ -70,7 +70,7 @@ const parseCSVToArray = (data) => {
         
         if(indexParser == 0) {
 
-            arrayReference.initMonthIndex   = processCurrentMonth(element);
+            // arrayReference.initMonthIndex   = processCurrentMonth(element);
             arrayReference.workDays         = processHeader(element);
         }
     
