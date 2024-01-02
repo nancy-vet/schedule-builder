@@ -3,12 +3,22 @@ document.getElementById("inputId").addEventListener('change', async (e) => {
     const content   = await readFileSyn(e.target.files[0]);
     const data      = content.split('\n');
 
-    const applicationObject = transformCSVToObject(data);
+    let d = [];
+    data.forEach((element) => {
+        d.push(element.replace('\r', ''));
+    });
+
+    const applicationObject = transformCSVToObject(d);
     const tableMap          = buildTableMap(applicationObject);
     const workbook          = new ExcelJS.Workbook();
 
     for(let i = 0; i < tableMap.length; i++) {
-        createWorksheet(workbook, content, tableMap[i], `Седмица ${i + 1}`);
+        
+        const startIndex    = tableMap[i].startIndex;
+        const endIndex      = tableMap[i].endIndex; 
+        const title         = `Седмица ${i + 1} (${startIndex} - ${endIndex})`
+
+        createWorksheet(workbook, content, tableMap[i].collection, title);
     }
         
     const xls64         = await workbook.xlsx.writeBuffer( { base64: true });

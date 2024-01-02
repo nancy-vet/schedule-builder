@@ -1,3 +1,9 @@
+/**
+ * @author Mihail Petrov
+ * @param {*} index 
+ * @param {*} tableRecord 
+ * @returns 
+ */
 const buildSheduleRow = (index, tableRecord) => {
 
     const row = [];
@@ -14,18 +20,36 @@ const buildSheduleRow = (index, tableRecord) => {
 
         const workFlag = (record.workRelation).toUpperCase();
 
-        if(workFlag == '1'  ) row.push('първа');
-        if(workFlag == '2'  ) row.push('втора');
-        if(workFlag == 'M'  ) row.push('междиннка');
+        if(workFlag == '1'  ) row.push('първа [08:00 - 17:00]');
+        if(workFlag == '2'  ) row.push('втора [11:00 - 20:00]');
+        if(workFlag == 'М'  ) row.push('междиннка [09:30 - 18:30]');
     }
 
     return row;
 }
 
+/**
+ * @author Mihail Petrov
+ * @param {*} tableRecord 
+ * @returns 
+ */
 const buildHeaderRow = (tableRecord) => {
 
+    if(tableRecord.index == 1) {
+        STATE.isNextMonth = true; 
+    }
+1
     const row = [];
-    row.push(tableRecord.index);
+    
+    let tty = -1;
+    if(!STATE.isNextMonth) {
+        tty = (STATE.monthIndex < 10) ? ('0' + STATE.monthIndex) : STATE.monthIndex; 
+    }
+    else {
+        tty = (STATE.monthIndex < 10) ? ('0' + (STATE.monthIndex + 1)) : (STATE.monthIndex + 1);
+    }
+
+    row.push(`${tableRecord.index}.${tty}.2023`);
     
     for(let i = 0; i < tableRecord.collection.length; i++) {
         row.push(tableRecord.collection[i].person);
@@ -41,17 +65,19 @@ const buildHeaderRow = (tableRecord) => {
  * @param {*} lanchTimeframeCollection 
  * @returns 
  */
-const processTimeFrameIdentificator = (
-        timeFrame, 
-        regularTimeframeCollection, 
-        lanchTimeframeCollection
-    ) => {
+const processTimeFrameIdentificator = (timeFrame, regularTimeframeCollection, lanchTimeframeCollection) => {
 
     if( regularTimeframeCollection.includes(timeFrame)  ) return '-';
     if( lanchTimeframeCollection.includes(timeFrame)    ) return 'обедна почивка';
     return '';
 }
 
+/**
+ * @author Mihail Petrov
+ * @param {*} timeFrame 
+ * @param {*} tableRecord 
+ * @returns 
+ */
 const buildTimeFrameRow = (timeFrame, tableRecord) => {
 
     const tableRow = [timeFrame];
@@ -82,6 +108,11 @@ const buildTimeFrameRow = (timeFrame, tableRecord) => {
     return tableRow;
 };
 
+/**
+ * @author Mihail Petrov
+ * @param {*} applicationObject 
+ * @returns 
+ */
 const buildTableMap = (applicationObject) => {
 
     const sheetTable = [];
@@ -89,6 +120,10 @@ const buildTableMap = (applicationObject) => {
     for(let index = 0; index < applicationObject.length; index++) {
 
         const tableRecord = applicationObject[index];
+
+        if(index == 0) {
+            STATE.initDayIndex = tableRecord.index;
+        }
 
         const tableMap = [[]];
         tableMap.push(buildSheduleRow(index, tableRecord));
@@ -119,18 +154,27 @@ const buildTableMap = (applicationObject) => {
         tableMap.push(buildTimeFrameRow('19:30', tableRecord));
         tableMap.push([]);
 
-        sheetTable.push(tableMap);
+        sheetTable.push({dateIndex: tableRecord.index, tableMap: tableMap});
     }
 
 
     let resultCollection    = [];
     let dump                = [];
     for(let i = 0; i < sheetTable.length; i++) {
-        dump.push(sheetTable[i]);
+        
+
+
+        dump.push(sheetTable[i].tableMap);
 
         if((i + 1) % 7 == 0) {
 
-            resultCollection.push(dump.flat());
+            const startIndex    = sheetTable[i - 6].dateIndex;
+            const endIndex      = sheetTable[i].dateIndex;
+            resultCollection.push({ 
+                startIndex: startIndex, 
+                endIndex: endIndex, 
+                collection: dump.flat()
+            });
             dump = [];
         }
     }

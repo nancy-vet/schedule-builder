@@ -34,9 +34,12 @@ const processCurrentMonth = (element) => {
     
     const elementCollection = element.split(',');
     const collection        = elementCollection[1];
-    const monthElement      = collection.split('/')[0];
 
-    return getMonthIndex(monthElement);
+    if(collection) {
+
+        const monthElement      = collection.split('/')[0];
+        STATE.monthIndex = getMonthIndex(monthElement);
+    }
 }
 
 /**
@@ -66,11 +69,13 @@ const parseCSVToArray = (data) => {
     };
 
     let indexParser         = 0;
+
     for(let element of data) {
         
         if(indexParser == 0) {
-
             // arrayReference.initMonthIndex   = processCurrentMonth(element);
+            // STATE.monthIndex                = processCurrentMonth(element);
+            processCurrentMonth(element);
             arrayReference.workDays         = processHeader(element);
         }
     
@@ -80,6 +85,9 @@ const parseCSVToArray = (data) => {
     
         indexParser++;
     }
+
+    console.log("@@@");
+    console.log(arrayReference);
 
     return arrayReference;
 }
@@ -140,6 +148,7 @@ const getTotalWorkPersonelCount = (data) => {
 const transformCSVToObject = (data) => {
 
     const arrayResult =  parseCSVToArray(data);
+    console.log(arrayResult);
 
     const template = [];
     for(let index = 1; index < arrayResult.workDays.length; index++ ) {
