@@ -22,7 +22,7 @@ const buildSheduleRow = (index, tableRecord) => {
 
         if(workFlag == '1'  ) row.push('първа [08:00 - 17:00]');
         if(workFlag == '2'  ) row.push('втора [11:00 - 20:00]');
-        if(workFlag == 'М'  ) row.push('междиннка [09:30 - 18:30]');
+        if(workFlag == 'М'  ) row.push('междинка [09:30 - 18:30]');
     }
 
     return row;
