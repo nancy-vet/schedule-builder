@@ -40,7 +40,8 @@ const createWorksheet = (workbook, content, tableMap, title) => {
                 cell.fill = {
                     type    : 'pattern',
                     pattern : 'solid',
-                    fgColor : {argb:'CFE2F3'},
+                    fgColor : {argb:'F4CCCC'}
+                    // fgColor : {argb:'CFE2F3'},
                 };
             }
     
@@ -50,7 +51,7 @@ const createWorksheet = (workbook, content, tableMap, title) => {
                 cell.fill = {
                     type    : 'pattern',
                     pattern : 'solid',
-                    fgColor : {argb:'F9CB9C'},
+                    fgColor : {argb:'E06666'},
                 };
             }
 

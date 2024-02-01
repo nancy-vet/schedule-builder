@@ -86,9 +86,6 @@ const parseCSVToArray = (data) => {
         indexParser++;
     }
 
-    console.log("@@@");
-    console.log(arrayReference);
-
     return arrayReference;
 }
 
