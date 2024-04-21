@@ -28,7 +28,7 @@ const createWorksheet = (workbook, content, tableMap, title) => {
                 colorThisRow = true;
 
                 cell.font = {
-                    size: 16
+                    size: 14
                 }
 
             }
@@ -45,16 +45,23 @@ const createWorksheet = (workbook, content, tableMap, title) => {
 
                 colorThisRow = false;
             }
-            
-            //if(colorThisRow) {
+        
+
+            if(rowNumber % 27 == 0) {
+                cell.fill = {
+                    type    : 'pattern',
+                    pattern : 'solid',
+                    fgColor : {argb:'AA00FF'}
+                };                
+            }
+            else {
                 cell.fill = {
                     type    : 'pattern',
                     pattern : 'solid',
                     fgColor : {argb:'F4CCCC'}
-                    // fgColor : {argb:'CFE2F3'},
                 };
-            //}
-    
+            }
+
     
             if(cell.value == 'обедна почивка') {
 

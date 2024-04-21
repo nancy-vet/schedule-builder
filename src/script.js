@@ -16,7 +16,7 @@ document.getElementById("inputId").addEventListener('change', async (e) => {
         
         const startIndex    = tableMap[i].startIndex;
         const endIndex      = tableMap[i].endIndex; 
-        const title         = `Седмица ${i + 1} (${startIndex} - ${endIndex})`
+        const title         = `${startIndex} - ${endIndex}`
 
         createWorksheet(workbook, content, tableMap[i].collection, title);
     }
