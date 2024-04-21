@@ -152,18 +152,16 @@ const buildTableMap = (applicationObject) => {
         tableMap.push(buildTimeFrameRow('18:30', tableRecord));                
         tableMap.push(buildTimeFrameRow('19:00', tableRecord));
         tableMap.push(buildTimeFrameRow('19:30', tableRecord));
-        tableMap.push([]);
+        // tableMap.push([]);
 
         sheetTable.push({dateIndex: tableRecord.index, tableMap: tableMap});
     }
 
-
     let resultCollection    = [];
     let dump                = [];
+
     for(let i = 0; i < sheetTable.length; i++) {
         
-
-
         dump.push(sheetTable[i].tableMap);
 
         if((i + 1) % 7 == 0) {
@@ -171,9 +169,9 @@ const buildTableMap = (applicationObject) => {
             const startIndex    = sheetTable[i - 6].dateIndex;
             const endIndex      = sheetTable[i].dateIndex;
             resultCollection.push({ 
-                startIndex: startIndex, 
-                endIndex: endIndex, 
-                collection: dump.flat()
+                startIndex  : startIndex, 
+                endIndex    : endIndex, 
+                collection  : dump.flat()
             });
             dump = [];
         }

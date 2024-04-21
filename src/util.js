@@ -10,3 +10,11 @@ const readFileSyn = (file) => {
         reader.readAsText(file);
     });
 }
+
+const isDayInWeek = (id) => {
+    return ["Понеделник", "Вторник", "Сряда", "Четвъртък", "Петък", "Събота", "Неделя"].includes(id);
+}
+
+const containsYear = (id) => {
+    return id.includes('2023') ||  id.includes('2024') || id.includes('2025')
+}

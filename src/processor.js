@@ -1,11 +1,10 @@
 const createWorksheet = (workbook, content, tableMap, title) => {
 
     const worksheet = workbook.addWorksheet(title);
-
     worksheet.addRows(tableMap);
     
     const columnHeader = [
-        { header: '', key: '', width: 20 }
+        // { header: '', key: '', width: 20 }
     ];
     
     for(let i = 0; i < getTotalWorkPersonelCount(content); i++) {
@@ -18,16 +17,31 @@ const createWorksheet = (workbook, content, tableMap, title) => {
     worksheet.columns = columnHeader;
     
     worksheet.eachRow((row, rowNumber) => {
-    
+        
         row.height = 20;
     
-        let colorThisRow = false;
+        let colorThisRow    = false;
+        let thisRowIsHeader = false; 
         row.eachCell((cell, colNumber) => {
 
+            if(isDayInWeek(cell.value) && colNumber == 1) {
+                thisRowIsHeader = true;    
+            }
+
+            if(containsYear(cell.value) && colNumber == 1) {
+                thisRowIsHeader = true;
+            }
+
+            cell.font = {
+                size: 14
+            }
+
             if(['08:00', '09:00','10:00', '11:00', '12:00', '16:00', '17:00', '18:00', '19:00'].includes(cell.value)) {
+                
                 colorThisRow = true;
 
                 cell.font = {
+                    bold: true,
                     size: 14
                 }
 
@@ -46,8 +60,7 @@ const createWorksheet = (workbook, content, tableMap, title) => {
                 colorThisRow = false;
             }
         
-
-            if(rowNumber % 27 == 0) {
+            if(thisRowIsHeader) {
                 cell.fill = {
                     type    : 'pattern',
                     pattern : 'solid',
@@ -81,7 +94,8 @@ const createWorksheet = (workbook, content, tableMap, title) => {
                 };
 
                 cell.font = { 
-                    bold: true 
+                    bold: true,
+                    size: 14
                 };
             } 
 
