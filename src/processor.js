@@ -104,8 +104,9 @@ const createWorksheet = (workbook, content, tableMap, title) => {
                     fgColor : {argb:'A64D79'}
                 };                
 
-                cell.font = {
-                    bold: true
+                cell.font   = {
+                    size    : 16,
+                    bold    : true
                 };
             }
             else {
