@@ -12,7 +12,16 @@ const readFileSyn = (file) => {
 }
 
 const isDayInWeek = (id) => {
-    return ["Понеделник", "Вторник", "Сряда", "Четвъртък", "Петък", "Събота", "Неделя"].includes(id);
+
+    return [
+        "Понеделник"    ,
+        "Вторник"       ,
+        "Сряда"         ,
+        "Четвъртък"     ,
+        "Петък"         ,
+        "Събота"        ,
+        "Неделя"
+    ].includes(id);
 }
 
 const containsYear = (id) => {

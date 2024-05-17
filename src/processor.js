@@ -36,7 +36,17 @@ const createWorksheet = (workbook, content, tableMap, title) => {
                 size: 14
             }
 
-            if(['08:00', '09:00','10:00', '11:00', '12:00', '16:00', '17:00', '18:00', '19:00'].includes(cell.value)) {
+            if([
+                '08:00', 
+                '09:00',
+                '10:00', 
+                '11:00', 
+                '12:00', 
+                '16:00',
+                '17:00', 
+                '18:00', 
+                '19:00'
+            ].includes(cell.value)) {
                 
                 colorThisRow = true;
 
@@ -47,25 +57,56 @@ const createWorksheet = (workbook, content, tableMap, title) => {
 
             }
 
-            if(['12:30', '13:00','13:30', '14:00', '14:30', '15:00', '15:30'].includes(cell.value)) {
+            if([
+                '12:30', 
+                '13:00',
+                '13:30', 
+                '14:00', 
+                '14:30', 
+                '15:00', 
+                '15:30'
+            ].includes(cell.value)) {
+
+                cell.font = {
+                    bold: true,
+                    size: 14
+                }
+                
                 colorThisRow = false;
             }
 
-            if(['08:30', '09:30','10:30', '11:30', '12:30', '15:30', '16:30', '17:30', '18:30', '19:30'].includes(cell.value)) {
+            if([
+                '08:30', 
+                '09:30',
+                '10:30', 
+                '11:30', 
+                '12:30', 
+                '15:30',
+                '16:30', 
+                '17:30', 
+                '18:30', 
+                '19:30'
+            ].includes(cell.value)) {
 
                 cell.font = {
-                    size: 14
+                    size    : 14,
+                    bold    : true
                 }
 
                 colorThisRow = false;
             }
         
             if(thisRowIsHeader) {
+
                 cell.fill = {
                     type    : 'pattern',
                     pattern : 'solid',
-                    fgColor : {argb:'AA00FF'}
+                    fgColor : {argb:'A64D79'}
                 };                
+
+                cell.font = {
+                    bold: true
+                };
             }
             else {
                 cell.fill = {
